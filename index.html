@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Games Cloud - Play Anywhere!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for gaming style -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Outfit:wght@100..900&family=Rammetto+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cantora+One&family=Coiny&family=Outfit:wght@100..900&family=Rammetto+One&display=swap" rel="stylesheet">
+  <!-- Add FontAwesome for icons if not already present -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(8px) brightness(0.7);
+      transition: filter 0.3s;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 10px;
+      background: rgba(15, 32, 39, 0.7);
+      box-sizing: border-box;
+    }
+    .logo {
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7, 0 0 20px #1a2980;
+      text-align: center;
+      font-family: 'Rammetto One', 'Coiny', 'Cantora One', 'Outfit', Arial, sans-serif;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 0 0 5px #1a2980;
+      text-align: center;
+      max-width: 500px;
+      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
+    }
+    .platform-logos {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+    .platform-logos img {
+      width: 50px;
+      height: 50px;
+      filter: drop-shadow(0 0 5px #00ffe7);
+      background: rgba(,,,);
+      border-radius: 100%;
+      padding: 5px;
+      transition: transform 0.2s;
+    }
+    .platform-logos img:hover {
+      transform: scale(1.15) rotate(-8deg);
+      box-shadow: 0 0 16px #00ffe7;
+    }
+    .handle-container {
+      position: relative;
+      width: 700px;
+      max-width: 98vw;
+      margin: 40px 0 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      aspect-ratio: 1000/400;
+    }
+    .handle-img {
+      width: 100%;
+      display: block;
+      z-index: 10;
+      position: relative;
+      pointer-events: none;
+      user-select: none;
+    }
+    /* Make the video fill more of the handle area, but a bit smaller than before */
+    .handle-video {
+      position: absolute;
+      top: 9%;      /* Slightly lower than before */
+      left: 16%;     /* Slightly more margin */
+      width: 67%;    /* Slightly less width */
+      height: 75%;   /* Slightly less height */
+      border-radius: 40px;
+      object-fit: cover;
+      z-index: 3;
+      box-shadow: 0 0 16px #00ffe7a0;
+      pointer-events: none;
+      border: 2px solid #222a;
+      background: #000;
+      animation: moveTop 5s 1;
+    }
+    @keyframes moveTop {
+      from { opacity: 0; transform: translateY(40px);}
+      to   { opacity: 1; transform: translateY(0);}
+    }
+    .cta-btn {
+      background: #1b3d1b;
+      color: #fff;
+      border: 2px solid #4caf50;
+      border-radius: 14px;
+      padding: 18px 48px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      box-shadow: 0 2px 8px #0002;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 0 auto 36px auto;
+      font-family: 'Outfit', Arial, sans-serif;
+      cursor: pointer;
+      position: relative;
+      transition:
+        background 0.18s,
+        color 0.18s,
+        border-color 0.18s,
+        box-shadow 0.18s,
+        transform 0.13s;
+    }
+    .cta-btn .btn-text {
+      font-family: 'Outfit', Arial, sans-serif;
+      font-size: 1.35rem;
+      color: #fff;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-shadow: none;
+      transition: color 0.18s;
+    }
+    .cta-btn .btn-icon {
+      font-size: 1.5rem;
+      margin-left: 8px;
+      color: #4caf50;
+      transition: color 0.18s, transform 0.13s;
+    }
+    .cta-btn:hover {
+      background: #4caf50;
+      color: #fff;
+      border-color: #1b3d1b;
+      box-shadow: 0 4px 16px #4caf5022, 0 2px 8px #1a298033;
+      transform: scale(1.03);
+    }
+    .cta-btn:hover .btn-text {
+      color: #fff;
+    }
+    .cta-btn:hover .btn-icon {
+      color: #1b3d1b;
+      transform: scale(1.08) rotate(-8deg);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #1a2980;
+      padding: 32px 24px;
+      border-radius: 18px;
+      text-align: center;
+      max-width: 350px;
+      margin: 0 10px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+      color: #fff;
+      width: 90vw;
+      box-sizing: border-box;
+      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
+    }
+    .modal-content h2 {
+      margin-bottom: 18px;
+      color: #00ffe7;
+      font-family: 'Rammetto One', 'Coiny', 'Cantora One', 'Outfit', Arial, sans-serif;
+    }
+    .modal-content p {
+      margin-bottom: 22px;
+      font-size: 1.1rem;
+      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
+    }
+    .modal-content .offer-btn {
+      background: #1b3d1b;
+      color: #fff;
+      font-weight: bold;
+      padding: 12px 32px;
+      border: none;
+      border-radius: 22px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px #4caf5022;
+      transition: 
+        background 0.3s, 
+        color 0.3s, 
+        transform 0.15s, 
+        box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
+      border: 2px solid #4caf50;
+    }
+    .modal-content .offer-btn:hover {
+      background: #4caf50;
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px #4caf5022;
+    }
+    .modal-content .close-btn {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #ff1744;
+      font-size: 1.2rem;
+      margin-top: 10px;
+      cursor: pointer;
+      text-decoration: underline !important;
+      transition: 
+        color 0.2s,
+        border-color 0.2s,
+        box-shadow 0.2s;
+      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
+      border-radius: 18px;
+      padding: 6px 28px;
+      box-shadow: 0 1px 4px #ff17441a;
+      text-shadow: none;
+    }
+    .modal-content .close-btn:hover {
+      color: #fff;
+      border-color: #fff;
+      box-shadow: 0 2px 8px #ff17441a;
+      background: rgba(255,23,68,0.12);
+    }
+    .stylish-download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 22px 64px;
+      border: none;
+      border-radius: 48px;
+      background: linear-gradient(100deg, #232526 0%, #00ffe7 60%, #1a2980 100%);
+      color: #fff;
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      box-shadow: 0 2px 12px #00ffe71a, 0 1px 4px #1a298033;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      margin: 0 auto 36px auto;
+      transition:
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.18s;
+    }
+    .stylish-download-btn .icon {
+      font-size: 2.1rem;
+      margin-right: 10px;
+      color: #fff;
+      transition: color 0.2s, transform 0.18s;
+    }
+    .stylish-download-btn .label {
+      font-size: 1.6rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #fff;
+      transition: color 0.3s;
+    }
+    .stylish-download-btn .size {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #00ffe7;
+      margin-left: 18px;
+      background: #1a2980;
+      border-radius: 14px;
+      padding: 4px 14px;
+      letter-spacing: 1px;
+    }
+    .stylish-download-btn:hover {
+      background: linear-gradient(100deg, #00ffe7 0%, #232526 60%, #1a2980 100%);
+      color: #00ffe7;
+      box-shadow: 0 4px 24px #00ffe733, 0 2px 8px #1a298033;
+      transform: scale(1.06) rotate(-1deg);
+    }
+    .stylish-download-btn:hover .icon {
+      color: #00ffe7;
+      transform: scale(1.18) rotate(-8deg);
+    }
+    .stylish-download-btn:hover .label {
+      color: #00ffe7;
+    }
+    @media (max-width: 900px) {
+      .content {
+        padding: 30px 5vw;
+      }
+      .logo {
+        font-size: 2rem;
+      }
+      .subtitle {
+        font-size: 1rem;
+      }
+      .handle-container {
+        width: 450px;
+      }
+    }
+    @media (max-width: 600px) {
+      .content {
+        padding: 100px 2vw;
+      }
+      .logo {
+        font-size: 1.3rem;
+      }
+      .subtitle {
+        font-size: 0.95rem;
+      }
+      .platform-logos img { width: 30px; height: 30px; }
+      .modal-content { padding: 18px 5px; }
+      .cta-btn {
+        font-size: 1rem;
+        padding: 12px 18px;
+      }
+      .cta-btn .btn-text {
+        font-size: 1.1rem;
+      }
+      .modal-content .offer-btn {
+        font-size: 1rem;
+        padding: 10px 18px;
+      }
+      .handle-container {
+        width: 99vw;
+        max-width: 99vw;
+      }
+    }
+    @media (max-width: 400px) {
+      .logo { font-size: 1.1rem; }
+      .subtitle { font-size: 0.85rem; }
+      .handle-container { width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Video background -->
+  <video class="video-bg" src="https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/game-video/9b7e/b1/05/9b7eb105aa3c97a9cab985d0cace3392.webm" autoplay loop muted playsinline></video>
+  <div class="content">
+    <div class="logo"></div>
+    <div class="subtitle">Play PC & PlayStation games on your phone. No limits. Just play!</div>
+    <div class="platform-logos">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" alt="Android Logo" title="Android">
+      <img src="https://i.postimg.cc/CK8yhW3G/pngegg.png" alt="iOS Logo" title="iOS">
+</div>
+    <!-- Download Info Card -->
+    <div class="download-info-card" style="background:rgba(10,20,30,0.85);border-radius:35px;box-shadow:0 2px 24px #00ffe71a;padding:20px 28px 10px 28px;max-width:500px;width:100%;margin-bottom: 10px;display:flex;flex-direction:column;align-items:center;gap:18px;">
+      <div style="font-size:1.9rem;font-weight:0;letter-spacing:0px;color:#ffffff;text-shadow:0 0 8px #0ffe7a0;"<div class="logo">
+  <img src="https://i.postimg.cc/y6GFp63H/63d0efec19f10.png" alt="Gamehub Cloud Icon" style="height: 100px; vertical-align: middle; margin-right: 26px;">
+  ChikiiMod.apk
+</div>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;">
+        <div style="background:#1a298;border-radius:16px;padding:8px 18px;font-size:1.1rem;display:flex;align-items:center;gap:8px;color:#fff;">
+          <span style="font-size:1.3em;color:#00ffe7;" class="fa fa-hdd-o"></span> Size: <b>150MB</b>
+        </div>
+        <div style="background:#1a298;border-radius:16px;padding:8px 18px;font-size:1.1rem;display:flex;align-items:center;gap:8px;color:#fff;">
+          <span style="font-size:1.3em;color:#00ffe7;" class="fa fa-download"></span> <b>100K+</b> downloads
+        </div>
+        <div style="background:#1a298;border-radius:16px;padding:8px 18px;font-size:1.3rem;display:flex;align-items:center;gap:8px;color:#FDBD01;">
+          <span style="font-size:1.5em;color:#FDBD01;" class="fa fa-bolt"></span> Unlimited Coins
+        </div>
+        <div style="background:#1a298;border-radius:16px;padding:8px 18px;font-size:1.1rem;display:flex;align-items:center;gap:8px;color:#fff;">
+          <span style="font-size:1.3em;color:#00ffe7;" class="fa fa-calendar"></span> Last updated: <b>3 Juin 2025</b>
+        </div>
+      </div>
+    </div>
+    <!-- Download button above the handle -->
+    <button class="cta-btn" id="downloadBtn">
+      <span class="btn-text">Download</span>
+      <span class="btn-icon">🎮</span>
+    </button>
+    <div class="handle-container">
+      <img class="handle-img" src="https://gamehub.xiaoji.com/static/images/new/handle.png" alt="Game Handle">
+      <video
+        class="handle-video"
+        src="https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/game-video/9b7e/b1/05/9b7eb105aa3c97a9cab985d0cace3392.webm"
+        autoplay
+        loop
+        muted
+        playsinline
+        poster="https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/game-image/5803/d4/be/5803d4bea386d90226c8825147349a9e.jpeg"
+        preload="auto"
+        webkit-playsinline="true"
+        x-webkit-airplay="true"
+        x5-playsinline="true"
+        x5-video-orientation="portraint"
+        x5-video-player-type="h5"
+      ></video>
+    </div>
+  </div>
+
+  <!-- Modal for CPA Offer -->
+  <div class="modal" id="cpaModal">
+    <div class="modal-content" style="background: linear-gradient(135deg, #1a2980 60%, #00ffe7 100%); box-shadow: 0 8px 32px 0 #00ffe755;">
+      <h2 style="color:#fff; font-size:1.6rem; margin-bottom:10px; letter-spacing:1px;">
+        🚀 Unlock Gameshub Access
+      </h2>
+      <p style="font-size:1.15rem; color:#fff; margin-bottom:24px;">
+        To keep This ModApp free for everyone, please complete a quick Survey step.<br>
+        <span style="color:#00ffe7; font-weight:bold;">1 minute</span> and you're in!
+      </p>
+      <a href="your-deployment-url.com/d126add" target="_blank" style="text-decoration:none;">
+        <button class="offer-btn" style="margin-bottom:12px;">
+          <span style="font-size:1.2rem;">Verify and Download</span>
+        </button>
+      </a>
+      <div style="margin:10px 0 0 0;">
+        <small style="color:#fff8; font-size:0.98rem;">
+          <span style="color:#00ffe7;">Thank you for supporting Us! ❤️</span>
+        </small>
+      </div>
+      <br>
+    </div>
+  </div>
+
+  <script>
+    // Modal logic
+    const downloadBtn = document.getElementById('downloadBtn');
+    const cpaModal = document.getElementById('cpaModal');
+
+    downloadBtn.onclick = function() {
+      cpaModal.style.display = 'flex';
+      // Call your content locker function here if you want it to trigger on download
+      // contentLockerFunction();
+    };
+
+    // Simulate CPA completion (replace with real logic)
+    document.querySelector('.offer-btn').onclick = function(e) {
+    
+    };
+
+    // Close modal on outside click
+    window.onclick = function(event) {
+      if (event.target === cpaModal) cpaModal.style.display = 'none';
+      // if (event.target === successModal) successModal.style.display = 'none'; // removed
+    };
+  </script>
+  <script>
+    // --- Content Locker JS START ---
+    var RZyMT_Bby_obQdEc = {"it":4509265,"key":"d1579"};
+  </script>
+  <script src="https://dfmpe7igjx4jo.cloudfront.net/a713c21.js"></script>
+  <script>
+    // Content locker function
+    function _JW() {
+      // Call the content locker logic here if needed
+      // Example: window.lockContent(); // or whatever the locker exposes
+    }
+    // Optionally, call _JW() when needed, e.g.:
+    // downloadBtn.onclick = function() {
+    //   cpaModal.style.display = 'flex';
+    //   _JW();
+    // };
+  </script>
+</body>
+</html>
