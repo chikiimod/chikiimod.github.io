@@ -179,150 +179,59 @@
       color: #1b3d1b;
       transform: scale(1.08) rotate(-8deg);
     }
-    .modal {
+    /* Modal styles for popup */
+    .modal-overlay {
       display: none;
       position: fixed;
-      z-index: 10;
-      left: 0; top: 0; width: 100vw; height: 100vh;
+      z-index: 1000;
+      left: 0; top: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.85);
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      transition: opacity 0.2s;
+    }
+    .modal-overlay.active {
+      display: flex;
     }
     .modal-content {
-      background: #1a2980;
-      padding: 32px 24px;
-      border-radius: 18px;
-      text-align: center;
-      max-width: 350px;
-      margin: 0 10px;
-      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
-      color: #fff;
-      width: 90vw;
-      box-sizing: border-box;
-      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
-    }
-    .modal-content h2 {
-      margin-bottom: 18px;
-      color: #00ffe7;
-      font-family: 'Rammetto One', 'Coiny', 'Cantora One', 'Outfit', Arial, sans-serif;
-    }
-    .modal-content p {
-      margin-bottom: 22px;
-      font-size: 1.1rem;
-      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
-    }
-    .modal-content .offer-btn {
-      background: #1b3d1b;
-      color: #fff;
-      font-weight: bold;
-      padding: 12px 32px;
-      border: none;
-      border-radius: 22px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      box-shadow: 0 1px 4px #4caf5022;
-      transition: 
-        background 0.3s, 
-        color 0.3s, 
-        transform 0.15s, 
-        box-shadow 0.3s;
+      background: #161b22;
+      border-radius: 16px;
+      padding: 0;
+      max-width: 400px;
+      width: 95vw;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.7);
       position: relative;
       overflow: hidden;
-      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
-      border: 2px solid #4caf50;
-    }
-    .modal-content .offer-btn:hover {
-      background: #4caf50;
-      color: #fff;
-      transform: scale(1.05);
-      box-shadow: 0 2px 8px #4caf5022;
-    }
-    .modal-content .close-btn {
-      background: transparent;
-      color: #fff;
-      border: 2px solid #ff1744;
-      font-size: 1.2rem;
-      margin-top: 10px;
-      cursor: pointer;
-      text-decoration: underline !important;
-      transition: 
-        color 0.2s,
-        border-color 0.2s,
-        box-shadow 0.2s;
-      font-family: 'Outfit', 'Cantora One', 'Rammetto One', 'Coiny', Arial, sans-serif;
-      border-radius: 18px;
-      padding: 6px 28px;
-      box-shadow: 0 1px 4px #ff17441a;
-      text-shadow: none;
-    }
-    .modal-content .close-btn:hover {
-      color: #fff;
-      border-color: #fff;
-      box-shadow: 0 2px 8px #ff17441a;
-      background: rgba(255,23,68,0.12);
-    }
-    .stylish-download-btn {
+      min-height: 220px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      padding: 22px 64px;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .modal-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: none;
       border: none;
-      border-radius: 48px;
-      background: linear-gradient(100deg, #232526 0%, #00ffe7 60%, #1a2980 100%);
       color: #fff;
-      font-family: 'Orbitron', Arial, sans-serif;
-      font-size: 1.6rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      box-shadow: 0 2px 12px #00ffe71a, 0 1px 4px #1a298033;
+      font-size: 28px;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      margin: 0 auto 36px auto;
-      transition:
-        background 0.3s,
-        color 0.3s,
-        box-shadow 0.3s,
-        transform 0.18s;
+      z-index: 10;
+      line-height: 1;
     }
-    .stylish-download-btn .icon {
-      font-size: 2.1rem;
-      margin-right: 10px;
-      color: #fff;
-      transition: color 0.2s, transform 0.18s;
-    }
-    .stylish-download-btn .label {
-      font-size: 1.6rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #fff;
-      transition: color 0.3s;
-    }
-    .stylish-download-btn .size {
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #00ffe7;
-      margin-left: 18px;
-      background: #1a2980;
-      border-radius: 14px;
-      padding: 4px 14px;
-      letter-spacing: 1px;
-    }
-    .stylish-download-btn:hover {
-      background: linear-gradient(100deg, #00ffe7 0%, #232526 60%, #1a2980 100%);
-      color: #00ffe7;
-      box-shadow: 0 4px 24px #00ffe733, 0 2px 8px #1a298033;
-      transform: scale(1.06) rotate(-1deg);
-    }
-    .stylish-download-btn:hover .icon {
-      color: #00ffe7;
-      transform: scale(1.18) rotate(-8deg);
-    }
-    .stylish-download-btn:hover .label {
-      color: #00ffe7;
+    @media (max-width: 600px) {
+      .modal-content {
+        max-width: 98vw;
+        width: 98vw;
+        min-height: 160px;
+        border-radius: 10px;
+        padding: 0;
+      }
+      .modal-close {
+        font-size: 2rem;
+        top: 4px;
+        right: 8px;
+      }
     }
     @media (max-width: 900px) {
       .content {
@@ -412,8 +321,21 @@
     <!-- Download button above the handle -->
     <button class="cta-btn" id="downloadBtn">
       <span onclick="_nO()" class="btn-text">Download</span>
-    <div onclick="_nO()" class="rating" style="color:#facc15;">⭐ 4.8 (4.2k reviews)</div>
+      <div onclick="_nO()" class="rating" style="color:#facc15;">⭐ 4.8 (4.2k reviews)</div>
     </button>
+    <!-- Modal for Content Locker -->
+    <div id="lockerModal" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close" id="closeModalBtn" aria-label="Close">&times;</button>
+        <!-- Content Locker Script Container -->
+        <div id="lockerContainer" style="width:100%;min-height:180px;">
+          <script type="text/javascript">
+            var lCAed_EYb_wPPFpc={"it":4509265,"key":"d1579"};
+          </script>
+          <script src="https://dfmpe7igjx4jo.cloudfront.net/1174115.js"></script>
+        </div>
+      </div>
+    </div>
     <div class="handle-container">
       <img class="handle-img" src="https://gamehub.xiaoji.com/static/images/new/handle.png" alt="Game Handle">
       <video
@@ -433,5 +355,28 @@
       ></video>
     </div>
   </div>
+  <script>
+    // Modal open/close logic
+    function openLockerModal() {
+      document.getElementById('lockerModal').classList.add('active');
+    }
+    function closeLockerModal() {
+      document.getElementById('lockerModal').classList.remove('active');
+    }
+    document.getElementById('downloadBtn').onclick = function(e) {
+      e.preventDefault();
+      openLockerModal();
+    };
+    // Also open modal when clicking the rating
+    document.querySelector('.rating').onclick = function(e) {
+      e.preventDefault();
+      openLockerModal();
+    };
+    document.getElementById('closeModalBtn').onclick = closeLockerModal;
+    // Optional: close modal when clicking outside content
+    document.getElementById('lockerModal').onclick = function(e) {
+      if (e.target === this) closeLockerModal();
+    };
+  </script>
 </body>
 </html>
