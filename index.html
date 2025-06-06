@@ -354,29 +354,6 @@
         x5-video-player-type="h5"
       ></video>
     </div>
-  </div>
-  <script>
-    // Modal open/close logic
-    function openLockerModal() {
-      document.getElementById('lockerModal').classList.add('active');
-    }
-    function closeLockerModal() {
-      document.getElementById('lockerModal').classList.remove('active');
-    }
-    document.getElementById('downloadBtn').onclick = function(e) {
-      e.preventDefault();
-      openLockerModal();
-    };
-    // Also open modal when clicking the rating
-    document.querySelector('.rating').onclick = function(e) {
-      e.preventDefault();
-      openLockerModal();
-    };
-    document.getElementById('closeModalBtn').onclick = closeLockerModal;
-    // Optional: close modal when clicking outside content
-    document.getElementById('lockerModal').onclick = function(e) {
-      if (e.target === this) closeLockerModal();
-    };
-  </script>
+  </d
 </body>
 </html>
